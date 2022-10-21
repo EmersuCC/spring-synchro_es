@@ -12,6 +12,7 @@
 	<artifactId>spring-synchro_es</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring-synchro_es</name>
+	<packaging>war</packaging>
 	<description>synchro-project</description>
 	<properties>
 		<java.version>19</java.version>
@@ -27,10 +28,10 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.30</version>
+		  </dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
