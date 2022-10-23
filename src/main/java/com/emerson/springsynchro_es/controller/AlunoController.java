@@ -15,6 +15,7 @@ import com.emerson.springsynchro_es.exception.UserNotFoundException;
 import com.emerson.springsynchro_es.model.Aluno;
 import com.emerson.springsynchro_es.repository.AlunoRepository;
 
+import java.time.Instant;
 import java.util.List;
 
 
@@ -40,20 +41,25 @@ public class AlunoController {
 
     @PutMapping("/{matricula}")
     Aluno alterar(@RequestBody Aluno aluno, @PathVariable Long matricula) {
+        
         return alunoRepository.findById(matricula)
         .map(user -> {
             user.setName(aluno.getName());
             user.setEmail(aluno.getEmail());
             user.setTelefone(aluno.getTelefone());
             user.setMatricula(matricula);
+            user.setDataCadastro(Instant.now());
 
             return alunoRepository.save(user);
         }).orElseThrow(() -> new UserNotFoundException(matricula));
     }
 
     @DeleteMapping("/{matricula}")
-    public void deletar(@PathVariable Long matricula) {
+    public String deletar(@PathVariable Long matricula) {
+        if(!alunoRepository.existsById(matricula))
+            throw new UserNotFoundException(matricula);
         alunoRepository.deleteById(matricula);
+        return("Aluno deletado com sucesso, matricula: " + matricula);
     }
 
     @GetMapping("/{matricula}")
